@@ -49,9 +49,9 @@ afterEvaluate {
                 artifactId = 'smart_round_viewGroup'
 //                version = version
                 pom {
-                    name = 'smart_round_viewGroup'
+                    name = 'SmartRoundViewGroup'
                     description = 'Create table in android easily'
-                    url = 'https://github.com/smartdevelopers-ir/smart_round_viewGroup'
+                    url = 'https://github.com/smartdevelopers-ir/SmartRoundViewGroup'
 
                     licenses {
                         license {
@@ -67,9 +67,9 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'scm:git:git://github.com/smartdevelopers-ir/smart_round_viewGroup.git'
-                        developerConnection = 'scm:git:ssh://github.com/smartdevelopers-ir/smart_round_viewGroup.git'
-                        url = 'http://github.com/smartdevelopers-ir/smart_round_viewGroup'
+                        connection = 'scm:git:git://github.com/smartdevelopers-ir/SmartRoundViewGroup.git'
+                        developerConnection = 'scm:git:ssh://github.com/smartdevelopers-ir/SmartRoundViewGroup.git'
+                        url = 'http://github.com/smartdevelopers-ir/SmartRoundViewGroup'
                     }
                 }
             }
