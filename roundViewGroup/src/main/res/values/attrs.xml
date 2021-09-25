@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SmartRoundConstraintLayout">
+        <attr name="backgroundColor" />
+        <attr name="android:topLeftRadius" />
+        <attr name="android:topRightRadius" />
+        <attr name="android:bottomRightRadius" />
+        <attr name="android:bottomLeftRadius" />
+        <attr name="android:radius"/>
+        <attr name="showShadow" />
+        <attr name="android:shadowRadius" />
+        <attr name="android:shadowDx" />
+        <attr name="android:shadowDy" />
+        <attr name="android:shadowColor" />
+        <attr name="leftShadowOffset" />
+        <attr name="rightShadowOffset"/>
+        <attr name="topShadowOffset" />
+        <attr name="bottomShadowOffset"/>
+        <attr name="gradientStartColor" />
+        <attr name="gradientEndColor" />
+        <attr name="gradientAngle" />
+    </declare-styleable>
+    <declare-styleable name="SmartRoundFrameLayout">
+        <attr name="backgroundColor" />
+        <attr name="android:topLeftRadius" />
+        <attr name="android:topRightRadius" />
+        <attr name="android:bottomRightRadius" />
+        <attr name="android:bottomLeftRadius" />
+        <attr name="android:radius"/>
+        <attr name="showShadow"/>
+        <attr name="android:shadowRadius" />
+        <attr name="android:shadowDx" />
+        <attr name="android:shadowDy" />
+        <attr name="android:shadowColor" />
+        <attr name="leftShadowOffset" />
+        <attr name="rightShadowOffset"/>
+        <attr name="topShadowOffset" />
+        <attr name="bottomShadowOffset" />
+        <attr name="gradientStartColor" />
+        <attr name="gradientEndColor" />
+        <attr name="gradientAngle" />
+    </declare-styleable>
+    <declare-styleable name="SmartRoundClippingLayout">
+        <attr name="android:radius"/>
+        <attr name="android:topRightRadius"/>
+        <attr name="android:topLeftRadius"/>
+        <attr name="android:bottomRightRadius"/>
+        <attr name="android:bottomLeftRadius"/>
+    </declare-styleable>
+    <attr name="leftShadowOffset" format="dimension"/>
+    <attr name="rightShadowOffset" format="dimension"/>
+    <attr name="topShadowOffset" format="dimension"/>
+    <attr name="bottomShadowOffset" format="dimension"/>
+    <attr name="gradientStartColor" format="color"/>
+    <attr name="gradientEndColor" format="color"/>
+    <attr name="gradientAngle" format="float"/>
+    <attr name="showShadow" format="boolean"/>
+</resources>
