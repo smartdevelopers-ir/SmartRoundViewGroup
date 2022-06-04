@@ -183,7 +183,7 @@ public class RoundDrawable extends Drawable {
                 bound.right - mShadowRightOffset,
                 bound.bottom - mShadowBottomOffset);
 
-        if (mGradientEndColor != -1 && mGradientStartColor != -1) {
+        if (mGradientEndColor != 0 && mGradientStartColor != 0) {
             float[][] axis = getAxis(rectF, mGradientAngle);
             mBackgroundPaint.setShader(new LinearGradient(axis[0][0], axis[0][1], axis[1][0], axis[1][1],
 //            mBackgroundPaint.setShader(new LinearGradient(100,0,100,200,

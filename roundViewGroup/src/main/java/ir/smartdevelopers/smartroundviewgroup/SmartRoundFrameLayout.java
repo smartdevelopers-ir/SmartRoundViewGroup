@@ -3,13 +3,18 @@ package ir.smartdevelopers.smartroundviewgroup;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import java.util.Arrays;
 
 
 public class SmartRoundFrameLayout extends FrameLayout {
@@ -21,7 +26,9 @@ public class SmartRoundFrameLayout extends FrameLayout {
     private float mShadowRadius;
     private int mShadowColor;
     private float mShadowDx,mShadowDy;
-
+    private Path mClipPath;
+    private RectF mRectF;
+    private float[] mRadius;
 
 
 
@@ -44,7 +51,9 @@ public class SmartRoundFrameLayout extends FrameLayout {
     private void init(Context context, AttributeSet attrs){
 
 //        setWillNotDraw(false);
-
+        mClipPath =new Path();
+        mRectF=new RectF();
+        mRadius=new float[]{16,16,16,16,16,16,16,16};
         mSmartRoundDrawable=new RoundDrawable();
         if (attrs!=null){
             TypedArray typedArray=context.obtainStyledAttributes(attrs, R.styleable.SmartRoundFrameLayout);
@@ -54,13 +63,14 @@ public class SmartRoundFrameLayout extends FrameLayout {
             }
             float radius=typedArray.getDimension(R.styleable.SmartRoundFrameLayout_android_radius,-1);
             if (radius!=-1){
-                mSmartRoundDrawable.setRadius(radius,radius,radius,radius);
+                setRadius(radius, radius, radius, radius);
             }else {
                 float topLeftRadius=typedArray.getDimension(R.styleable.SmartRoundFrameLayout_android_topLeftRadius,30f);
                 float topRightRadius=typedArray.getDimension(R.styleable.SmartRoundFrameLayout_android_topRightRadius,30f);
                 float bottomRightRadius=typedArray.getDimension(R.styleable.SmartRoundFrameLayout_android_bottomRightRadius,30f);
                 float bottomLeftRadius=typedArray.getDimension(R.styleable.SmartRoundFrameLayout_android_bottomLeftRadius,30f);
-                mSmartRoundDrawable.setRadius(topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius);
+
+                setRadius(topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius);
             }
            mShowShadow=typedArray.getBoolean(R.styleable.SmartRoundFrameLayout_showShadow,false);
            if (mShowShadow){
@@ -74,10 +84,10 @@ public class SmartRoundFrameLayout extends FrameLayout {
                mShadowColor=typedArray.getColor(R.styleable.SmartRoundFrameLayout_android_shadowColor,
                        Color.argb(128, 0, 0, 0));
            }
-           int gradientStartColor=typedArray.getColor(R.styleable.SmartRoundFrameLayout_gradientStartColor,-1);
-           int gradientEndColor=typedArray.getColor(R.styleable.SmartRoundFrameLayout_gradientEndColor,-1);
+           int gradientStartColor=typedArray.getColor(R.styleable.SmartRoundFrameLayout_gradientStartColor,0);
+           int gradientEndColor=typedArray.getColor(R.styleable.SmartRoundFrameLayout_gradientEndColor,0);
            float gradientAngle=typedArray.getFloat(R.styleable.SmartRoundFrameLayout_gradientAngle,0);
-           if (gradientEndColor!=-1 && gradientStartColor!=-1){
+           if (gradientEndColor!=0 && gradientStartColor!=0){
                mSmartRoundDrawable.setGradientColor(gradientStartColor,gradientEndColor,gradientAngle);
            }
 
@@ -120,10 +130,21 @@ public class SmartRoundFrameLayout extends FrameLayout {
 //    }
 
     public void setRadius(float topLeft, float topRight, float bottomRight, float bottomLeft){
+        float[] radius={topLeft,topLeft,topRight,topRight,bottomRight,bottomRight,bottomLeft,bottomLeft};
+        if (Arrays.equals(mRadius,radius)){
+            return;
+        }
+        mRadius[0]=mRadius[1]=topLeft;
+        mRadius[2]=mRadius[3]=topRight;
+        mRadius[4]=mRadius[5]=bottomRight;
+        mRadius[6]=mRadius[7]=bottomLeft;
         mSmartRoundDrawable.setRadius(topLeft,topRight,bottomRight,bottomLeft);
+        invalidate();
 //        setRadius(topLeft,topRight,bottomRight,bottomLeft,true);
     }
-
+    public float[] getRadius(){
+        return new float[]{mRadius[0],mRadius[2],mRadius[4],mRadius[6]};
+    }
 
 
     public int getBackgroundColor() {
@@ -138,5 +159,15 @@ public class SmartRoundFrameLayout extends FrameLayout {
 
     public void setBackgroundColor(ColorStateList backgroundColor) {
         mBackgroundColor = backgroundColor;
+    }
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        int save=canvas.save();
+        mClipPath.rewind();
+        mRectF.set(0,0,getMeasuredWidth(),getMeasuredHeight());
+        mClipPath.addRoundRect(mRectF,mRadius, Path.Direction.CW);
+        canvas.clipPath(mClipPath);
+        super.dispatchDraw(canvas);
+        canvas.restoreToCount(save);
     }
 }
