@@ -35,7 +35,7 @@ public class RoundDrawable extends Drawable {
     float mShadowDx, mShadowDy;
     private ColorStateList mBackgroundColor;
     private int mCurrentColor;
-    private int mGradientStartColor = -1, mGradientEndColor = -1;
+    private int mGradientStartColor = 0, mGradientEndColor = 0;
     private float mGradientAngle = 0;
 
 
